@@ -20,6 +20,9 @@ public class BicycleController {
         outputView.showGreetings();
 
         // CRUD
-        inputView.addBicycleInfo();
+        // TODO : Add skip
+        String input = inputView.addBicycleInfo();
+        bicycleService.createBicycle(input);
+        bicycleService.readBicycle();
     }
 }
