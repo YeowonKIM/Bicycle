@@ -7,7 +7,7 @@ public enum InfoMessage {
     STOP_ADDING("Enter 'exit' at any time to stop adding bicycles."),
     SHOW_BICYCLE("[View bicycles]"),
     SORTING("[Sort by price]"),
-    JAVA_SORT("[Sort by price - Java built-in Sort (Tim sort)]"),
+    JAVA_SORT("[Sort by price - Java built-in Sort]"),
     INSERTION_SORT("[Sort by price - Insertion Sort]"),
     Merge_SORT("[Sort by price - Merge Sort]"),
     TIM_SORT("[Sort by price - Tim Sort]")

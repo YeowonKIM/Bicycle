@@ -8,6 +8,8 @@ import view.OutputView;
 
 import java.util.List;
 
+import static common.InfoMessage.*;
+
 public class SortingController {
     private final InputView inputView;
     private final OutputView outputView;
@@ -25,14 +27,20 @@ public class SortingController {
         sortingService.existingBicycles();
 
         // Sorting 1 - Java sorted() method
-        sorting(sortingService.sortBicyclesByPrice());
+        sortBicycles(JAVA_SORT.getMessage(), sortingService.sortBicyclesByPrice());
 
         // Sorting 2 - Insertion Sort
-        sorting(sortingService.insertionSortBicyclesByPrice());
+        sortBicycles(INSERTION_SORT.getMessage(), sortingService.insertionSortBicyclesByPrice());
+
+        // Sorting 3 - Merge Sort
+        sortBicycles(Merge_SORT.getMessage(), sortingService.mergeSortBicyclesByPrice());
+
+        // Sorting 4 - Tim Sort
+        sortBicycles(TIM_SORT.getMessage(), sortingService.timSortBicyclesByPrice());
     }
 
-    private void sorting(List<Bicycle> bicycles) {
-        outputView.showInsertionSortByPriceInfo();
+    private void sortBicycles(String message, List<Bicycle> bicycles) {
+        outputView.showBicyclesByPriceInfoMessage(message);
         outputView.showBicyclesList(bicycles);
     }
 }

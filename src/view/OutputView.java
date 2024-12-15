@@ -40,14 +40,9 @@ public class OutputView {
         System.out.println(SORTING.getMessage());
     }
 
-    public void showBuiltinSortByPriceInfo() {
+    public void showBicyclesByPriceInfoMessage(String message) {
         System.out.println();
-        System.out.println(JAVA_SORT.getMessage());
-    }
-
-    public void showInsertionSortByPriceInfo() {
-        System.out.println();
-        System.out.println(INSERTION_SORT.getMessage());
+        System.out.println(message);
     }
 
 }
