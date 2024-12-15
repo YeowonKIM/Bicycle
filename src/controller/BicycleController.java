@@ -16,6 +16,10 @@ public class BicycleController {
     }
 
     public void runBicycleNavigator() {
+        // Greeting
         outputView.showGreetings();
+
+        // CRUD
+        inputView.addBicycleInfo();
     }
 }
