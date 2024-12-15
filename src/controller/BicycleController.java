@@ -1,5 +1,6 @@
 package controller;
 
+import domain.Bicycle;
 import service.BicycleService;
 import view.InputView;
 import view.OutputView;
@@ -26,5 +27,10 @@ public class BicycleController {
         List<String> inputs = inputView.addBicycleInfo();
         bicycleService.addBicycles(inputs);
         bicycleService.readBicycle();
+
+        // Sorting 1 - Java sorted() method
+        outputView.showBicyclesByPriceInfo();
+        List<Bicycle> bicycles = bicycleService.sortBicyclesByPriceDesc();
+        outputView.showBicyclesList(bicycles);
     }
 }

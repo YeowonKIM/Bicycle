@@ -6,8 +6,10 @@ import view.InputView;
 import view.OutputView;
 
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class BicycleService {
     private final BicycleRepository bicycleRepository;
@@ -26,10 +28,10 @@ public class BicycleService {
     }
 
     public void existingBicycles() {
-        Bicycle bicycle1 = new Bicycle(currentId++, "memchanical", 20, "good");
-        Bicycle bicycle2 = new Bicycle(currentId++, "memchanical", 30, "bad");
-        Bicycle bicycle3 = new Bicycle(currentId++, "electric", 50, "good");
-        Bicycle bicycle4 = new Bicycle(currentId++, "electric", 60, "good");
+        Bicycle bicycle1 = new Bicycle(currentId++, "memchanical", 30, "good");
+        Bicycle bicycle2 = new Bicycle(currentId++, "memchanical", 20, "bad");
+        Bicycle bicycle3 = new Bicycle(currentId++, "electric", 60, "good");
+        Bicycle bicycle4 = new Bicycle(currentId++, "electric", 50, "good");
         bicycleRepository.saveBicycle(bicycle1);
         bicycleRepository.saveBicycle(bicycle2);
         bicycleRepository.saveBicycle(bicycle3);
@@ -47,7 +49,14 @@ public class BicycleService {
 
     public void readBicycle() {
         Map<Integer, Bicycle> bicycles = bicycleRepository.getBicycles();
-        outputView.showBicycles(bicycles);
+        outputView.showBicycleMap(bicycles);
+    }
+
+    public List<Bicycle> sortBicyclesByPriceDesc() {
+        return bicycleRepository.getBicycles().values()
+                .stream()
+                .sorted(Comparator.comparingDouble(Bicycle::getPrice))
+                .collect(Collectors.toList());
     }
 
 }
