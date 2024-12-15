@@ -28,9 +28,9 @@ public class BicycleController {
         bicycleService.addBicycles(inputs);
         bicycleService.readBicycle();
 
-        // Sorting 1 - Java sorted() method
+        // Sorting
         outputView.showBicyclesByPriceInfo();
-        List<Bicycle> bicycles = bicycleService.sortBicyclesByPriceDesc();
+        List<Bicycle> bicycles = bicycleService.sortBicyclesByPrice();
         outputView.showBicyclesList(bicycles);
     }
 }

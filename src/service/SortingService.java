@@ -2,30 +2,18 @@ package service;
 
 import domain.Bicycle;
 import repository.BicycleRepository;
-import view.InputView;
 import view.OutputView;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
-public class BicycleService {
+public class SortingService {
     private final BicycleRepository bicycleRepository;
     private final OutputView outputView;
     private int currentId = 1;
-
-    public BicycleService() {
-        this.bicycleRepository = new BicycleRepository();
-        this.outputView = new OutputView();
-    }
-
-    public void addBicycles(List<String> inputs) {
-        for (String input : inputs) {
-            createBicycle(input);
-        }
-    }
 
     public void existingBicycles() {
         Bicycle bicycle1 = new Bicycle(currentId++, "memchanical", 30, "good");
@@ -38,18 +26,9 @@ public class BicycleService {
         bicycleRepository.saveBicycle(bicycle4);
     }
 
-    public void createBicycle(String input) {
-        String[] parts = input.split(", ");
-        String type = parts[0];
-        int price = Integer.parseInt(parts[1]);
-        String condition = parts[2];
-        Bicycle bicycle = new Bicycle(currentId++, type, price, condition);
-        bicycleRepository.saveBicycle(bicycle);
-    }
-
-    public void readBicycle() {
-        Map<Integer, Bicycle> bicycles = bicycleRepository.getBicycles();
-        outputView.showBicycleMap(bicycles);
+    public SortingService() {
+        this.bicycleRepository = new BicycleRepository();
+        this.outputView = new OutputView();
     }
 
     public List<Bicycle> sortBicyclesByPrice() {
@@ -59,4 +38,21 @@ public class BicycleService {
                 .collect(Collectors.toList());
     }
 
+    public List<Bicycle> insertionSortBicyclesByPrice() {
+        Collection<Bicycle> bicycles = bicycleRepository.getBicycles().values();
+        List<Bicycle> bicycleList = new ArrayList<>(bicycles);
+
+        for (int i = 1; i < bicycleList.size(); i++) {
+            Bicycle key = bicycleList.get(i);
+            int j = i - 1;
+
+            while (j >= 0 && bicycleList.get(j).getPrice() > key.getPrice()) {
+                bicycleList.set(j + 1, bicycleList.get(j));
+                j--;
+            }
+            bicycleList.set(j + 1, key);
+        }
+
+        return bicycleList;
+    }
 }

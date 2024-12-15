@@ -28,16 +28,26 @@ public class OutputView {
         }
     }
 
-    public void showBicyclesByPriceInfo() {
-        System.out.println();
-        System.out.println(SORTING.getMessage());
-    }
-
     public void showBicyclesList(List<Bicycle> bicycles) {
         int num = 1;
         for (Bicycle b : bicycles) {
             System.out.println(num++ + ") " + "type: " + b.getType() + ", " + "price: " + b.getPrice() + ", " + "condition: " + b.getCondition());
         }
+    }
+
+    public void showBicyclesByPriceInfo() {
+        System.out.println();
+        System.out.println(SORTING.getMessage());
+    }
+
+    public void showBuiltinSortByPriceInfo() {
+        System.out.println();
+        System.out.println(JAVA_SORT.getMessage());
+    }
+
+    public void showInsertionSortByPriceInfo() {
+        System.out.println();
+        System.out.println(INSERTION_SORT.getMessage());
     }
 
 }
