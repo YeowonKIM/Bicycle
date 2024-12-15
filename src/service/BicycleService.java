@@ -27,10 +27,10 @@ public class BicycleService {
 
     public void createBicycle(String input) {
         String[] parts = input.split(", ");
-        String model = parts[0];
+        String type = parts[0];
         int price = Integer.parseInt(parts[1]);
         String condition = parts[2];
-        Bicycle bicycle = new Bicycle(currentId++, model, price, condition);
+        Bicycle bicycle = new Bicycle(currentId++, type, price, condition);
         bicycleRepository.saveBicycle(bicycle);
     }
 
