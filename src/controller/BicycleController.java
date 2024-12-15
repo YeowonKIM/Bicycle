@@ -4,6 +4,8 @@ import service.BicycleService;
 import view.InputView;
 import view.OutputView;
 
+import java.util.List;
+
 public class BicycleController {
     private final InputView inputView;
     private final OutputView outputView;
@@ -21,8 +23,8 @@ public class BicycleController {
 
         // CRUD
         // TODO : Add skip
-        String input = inputView.addBicycleInfo();
-        bicycleService.createBicycle(input);
+        List<String> inputs = inputView.addBicycleInfo();
+        bicycleService.addBicycles(inputs);
         bicycleService.readBicycle();
     }
 }

@@ -6,6 +6,7 @@ import view.InputView;
 import view.OutputView;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 public class BicycleService {
@@ -16,6 +17,12 @@ public class BicycleService {
     public BicycleService() {
         this.bicycleRepository = new BicycleRepository();
         this.outputView = new OutputView();
+    }
+
+    public void addBicycles(List<String> inputs) {
+        for (String input : inputs) {
+            createBicycle(input);
+        }
     }
 
     public void createBicycle(String input) {
