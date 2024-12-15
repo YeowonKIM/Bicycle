@@ -22,7 +22,7 @@ public class BicycleController {
         outputView.showGreetings();
 
         // CRUD
-        // TODO : Add skip
+        bicycleService.existingBicycles();
         List<String> inputs = inputView.addBicycleInfo();
         bicycleService.addBicycles(inputs);
         bicycleService.readBicycle();

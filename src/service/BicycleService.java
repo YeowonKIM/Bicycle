@@ -25,6 +25,17 @@ public class BicycleService {
         }
     }
 
+    public void existingBicycles() {
+        Bicycle bicycle1 = new Bicycle(currentId++, "memchanical", 20, "good");
+        Bicycle bicycle2 = new Bicycle(currentId++, "memchanical", 30, "bad");
+        Bicycle bicycle3 = new Bicycle(currentId++, "electric", 50, "good");
+        Bicycle bicycle4 = new Bicycle(currentId++, "electric", 60, "good");
+        bicycleRepository.saveBicycle(bicycle1);
+        bicycleRepository.saveBicycle(bicycle2);
+        bicycleRepository.saveBicycle(bicycle3);
+        bicycleRepository.saveBicycle(bicycle4);
+    }
+
     public void createBicycle(String input) {
         String[] parts = input.split(", ");
         String type = parts[0];
