@@ -1,5 +1,6 @@
 package controller;
 
+import domain.Bicycle;
 import service.BicycleService;
 import view.InputView;
 import view.OutputView;
@@ -22,9 +23,14 @@ public class BicycleController {
         outputView.showGreetings();
 
         // CRUD
-        // TODO : Add skip
+        bicycleService.existingBicycles();
         List<String> inputs = inputView.addBicycleInfo();
         bicycleService.addBicycles(inputs);
         bicycleService.readBicycle();
+
+        // Sorting
+        outputView.showBicyclesByPriceInfo();
+        List<Bicycle> bicycles = bicycleService.sortBicyclesByPrice();
+        outputView.showBicyclesList(bicycles);
     }
 }
