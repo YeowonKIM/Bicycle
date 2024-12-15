@@ -2,29 +2,34 @@ package domain;
 
 public class Bicycle {
     private int id;
-    private String model;
+    private String type;
     private double price;
+    private String condition;
 
-    public Bicycle(int id, String model, double price) {
+    public Bicycle(int id, String type, double price, String condition) {
         this.id = id;
-        this.model = model;
+        this.type = type;
         this.price = price;
+        this.condition = condition;
     }
 
     public int getId() {
         return id;
     }
 
-    public String getModel() {
-        return model;
+    public String getType() {
+        return type;
     }
-
-    public void setModel(String model) {
-        this.model = model;
+    public String getCondition() {
+        return condition;
     }
 
     public double getPrice() {
         return price;
+    }
+
+    public void setModel(String type) {
+        this.type = type;
     }
 
     public void setPrice(double price) {
@@ -35,7 +40,7 @@ public class Bicycle {
     public String toString() {
         return "Bike{" +
                 "id=" + id +
-                ", model='" + model + '\'' +
+                ", type='" + type + '\'' +
                 ", price=" + price +
                 '}';
     }

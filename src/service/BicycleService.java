@@ -5,20 +5,38 @@ import repository.BicycleRepository;
 import view.InputView;
 import view.OutputView;
 
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+
 public class BicycleService {
     private final BicycleRepository bicycleRepository;
+    private final OutputView outputView;
     private int currentId = 1;
 
     public BicycleService() {
         this.bicycleRepository = new BicycleRepository();
+        this.outputView = new OutputView();
+    }
+
+    public void addBicycles(List<String> inputs) {
+        for (String input : inputs) {
+            createBicycle(input);
+        }
     }
 
     public void createBicycle(String input) {
         String[] parts = input.split(", ");
-        String model = parts[0];
+        String type = parts[0];
         int price = Integer.parseInt(parts[1]);
-        Bicycle bicycle = new Bicycle(currentId++, model, price);
+        String condition = parts[2];
+        Bicycle bicycle = new Bicycle(currentId++, type, price, condition);
         bicycleRepository.saveBicycle(bicycle);
+    }
+
+    public void readBicycle() {
+        Map<Integer, Bicycle> bicycles = bicycleRepository.getBicycles();
+        outputView.showBicycles(bicycles);
     }
 
 }

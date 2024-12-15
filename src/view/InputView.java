@@ -1,16 +1,31 @@
 package view;
 
-import java.io.Console;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
-import static common.InfoMessage.ADD_BICYCLE;
+import static common.InfoMessage.*;
 
 public class InputView {
     Scanner scanner = new Scanner(System.in);
-    public String addBicycleInfo() {
+
+    public List<String> addBicycleInfo() {
         System.out.println();
         System.out.println(ADD_BICYCLE.getMessage());
-        String input = scanner.nextLine();
-       return input;
+        System.out.println(STOP_ADDING.getMessage());
+        List<String> inputs = new ArrayList<>();
+
+        while (true) {
+            System.out.println(ADD_BICYCLE_INFO.getMessage());
+            String input = scanner.nextLine();
+
+            // 종료 조건
+            if (input.equalsIgnoreCase("exit")) {
+                break;
+            }
+
+            inputs.add(input);
+        }
+        return inputs;
     }
 }
