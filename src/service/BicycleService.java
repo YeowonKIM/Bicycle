@@ -29,7 +29,8 @@ public class BicycleService {
         String[] parts = input.split(", ");
         String model = parts[0];
         int price = Integer.parseInt(parts[1]);
-        Bicycle bicycle = new Bicycle(currentId++, model, price);
+        String condition = parts[2];
+        Bicycle bicycle = new Bicycle(currentId++, model, price, condition);
         bicycleRepository.saveBicycle(bicycle);
     }
 

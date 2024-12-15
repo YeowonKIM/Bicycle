@@ -22,7 +22,7 @@ public class OutputView {
         System.out.println();
         System.out.println(SHOW_BICYCLE.getMessage());
         for (Bicycle b : bicycles.values()) {
-            System.out.println("model: " + b.getModel() + ", " + "price: " + b.getPrice());
+            System.out.println("model: " + b.getModel() + ", " + "price: " + b.getPrice() + ", " + "condition: " + b.getCondition());
         }
     }
 }
