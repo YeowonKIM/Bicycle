@@ -1,23 +1,25 @@
 package service;
 
 import domain.Bicycle;
+import domain.Branch;
 import repository.BicycleRepository;
+import repository.BranchRepository;
 import view.InputView;
 import view.OutputView;
 
-import java.util.Collection;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class BicycleService {
     private final BicycleRepository bicycleRepository;
+    private final BranchRepository branchRepository;
     private final OutputView outputView;
-    private int currentId = 1;
+    private int currentBicycleId = 1;
+    private int currentBranchId = 1;
 
     public BicycleService() {
         this.bicycleRepository = new BicycleRepository();
+        this.branchRepository = new BranchRepository();
         this.outputView = new OutputView();
     }
 
@@ -28,10 +30,21 @@ public class BicycleService {
     }
 
     public void existingBicycles() {
-        Bicycle bicycle1 = new Bicycle(currentId++, "memchanical", 30, "good");
-        Bicycle bicycle2 = new Bicycle(currentId++, "memchanical", 20, "bad");
-        Bicycle bicycle3 = new Bicycle(currentId++, "electric", 60, "good");
-        Bicycle bicycle4 = new Bicycle(currentId++, "electric", 50, "good");
+        Branch branch1 = new Branch(currentBranchId++, "Champs-Élysées", 48.8698, 2.3078);  // Champs-Élysées
+        Branch branch2 = new Branch(currentBranchId++, "Tour Eiffel", 48.8584, 2.2945);  // Tour Eifflel
+        Branch branch3 = new Branch(currentBranchId++, "Musée d'Orsay", 48.8599, 2.3266);  // Musée d'Orsay
+        Branch branch4 = new Branch(currentBranchId++, "Grand Palais", 48.8662, 2.3125);  // Grand Palais
+
+        Bicycle bicycle1 = new Bicycle(currentBicycleId++, "memchanical", 30, "good", branch1, 0);
+        Bicycle bicycle2 = new Bicycle(currentBicycleId++, "memchanical", 20, "bad", branch2, 0);
+        Bicycle bicycle3 = new Bicycle(currentBicycleId++, "electric", 60, "good", branch3, 0);
+        Bicycle bicycle4 = new Bicycle(currentBicycleId++, "electric", 50, "good", branch4, 0);
+
+        branchRepository.saveBranch(branch1);
+        branchRepository.saveBranch(branch2);
+        branchRepository.saveBranch(branch3);
+        branchRepository.saveBranch(branch4);
+
         bicycleRepository.saveBicycle(bicycle1);
         bicycleRepository.saveBicycle(bicycle2);
         bicycleRepository.saveBicycle(bicycle3);
@@ -43,7 +56,8 @@ public class BicycleService {
         String type = parts[0];
         int price = Integer.parseInt(parts[1]);
         String condition = parts[2];
-        Bicycle bicycle = new Bicycle(currentId++, type, price, condition);
+        String branch = parts[3];
+        Bicycle bicycle = new Bicycle(currentBicycleId++, type, price, condition, findBranch(branch), 0);
         bicycleRepository.saveBicycle(bicycle);
     }
 
@@ -57,6 +71,65 @@ public class BicycleService {
                 .stream()
                 .sorted(Comparator.comparingDouble(Bicycle::getPrice))
                 .collect(Collectors.toList());
+    }
+
+    public List<Bicycle> sortBicyclesByDistance(String input) {
+        String[] parts = input.split(", ");
+        double latitude = Double.parseDouble(parts[0]);
+        double longitude = Double.parseDouble(parts[1]);
+
+        List<Bicycle> bicycles = getBicycleList();
+        double minDistance = 10000000L;
+        for (Bicycle b : bicycles) {
+            double distance = calculateDistance(latitude, longitude, b.getBranch().getLatitude(), b.getBranch().getLongitude());
+            b.setDistance(distance);
+        }
+
+        return bicycleRepository.getBicycles().values()
+                .stream()
+                .sorted(Comparator.comparingDouble(Bicycle::getDistance))
+                .collect(Collectors.toList());
+    }
+
+    private List<Bicycle> getBicycleList() {
+        Collection<Bicycle> bicycles = bicycleRepository.getBicycles().values();
+        List<Bicycle> bicycleList = new ArrayList<>(bicycles);
+        return bicycleList;
+    }
+
+    public Branch findBranch(String name) {
+        Collection<Branch> branches = branchRepository.getBranches().values();
+        for (Branch branch : branches) {
+            if (branch.getName().equals(name)) {
+                return branch;
+            }
+        }
+        Branch newBranch = new Branch(currentBranchId++, name, 48.8584, 2.3470);
+        branches.add(newBranch);
+        return newBranch;
+    }
+
+    public static double calculateDistance(double lat1, double lon1, double lat2, double lon2) {
+        final int EARTH_RADIUS_KM = 6371; // Earth's radius in kilometers
+
+        // Convert latitude and longitude from degrees to radians
+        double lat1Rad = Math.toRadians(lat1);
+        double lon1Rad = Math.toRadians(lon1);
+        double lat2Rad = Math.toRadians(lat2);
+        double lon2Rad = Math.toRadians(lon2);
+
+        // Calculate the differences between latitudes and longitudes
+        double deltaLat = lat2Rad - lat1Rad;
+        double deltaLon = lon2Rad - lon1Rad;
+
+        // Apply the Haversine formula
+        double a = Math.sin(deltaLat / 2) * Math.sin(deltaLat / 2)
+                + Math.cos(lat1Rad) * Math.cos(lat2Rad)
+                * Math.sin(deltaLon / 2) * Math.sin(deltaLon / 2);
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+        // Calculate the distance
+        return EARTH_RADIUS_KM * c;
     }
 
 }

@@ -28,9 +28,15 @@ public class BicycleController {
         bicycleService.addBicycles(inputs);
         bicycleService.readBicycle();
 
-        // Sorting
+        // Sorting bicycles by price
         outputView.showBicyclesByPriceInfo();
         List<Bicycle> bicycles = bicycleService.sortBicyclesByPrice();
         outputView.showBicyclesList(bicycles);
+
+        // Sorting bicycles by distance
+        outputView.showBicyclesByDistanceInfo();
+        String input = inputView.addMyLocation();
+        List<Bicycle> bicyclesSortedDistance = bicycleService.sortBicyclesByDistance(input);
+        outputView.showBicyclesListWithDistance(bicyclesSortedDistance);
     }
 }

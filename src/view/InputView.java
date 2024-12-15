@@ -28,4 +28,11 @@ public class InputView {
         }
         return inputs;
     }
+
+    public String addMyLocation() {
+        System.out.println();
+        System.out.println(ADD_MY_LOCATION_INFO.getMessage());
+        String input = scanner.nextLine();
+        return input;
+    }
 }

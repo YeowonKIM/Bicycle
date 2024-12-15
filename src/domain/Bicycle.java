@@ -5,12 +5,16 @@ public class Bicycle {
     private String type;
     private double price;
     private String condition;
+    private Branch branch;
+    private double distance = 0;
 
-    public Bicycle(int id, String type, double price, String condition) {
+    public Bicycle(int id, String type, double price, String condition, Branch branch, double distance) {
         this.id = id;
         this.type = type;
         this.price = price;
         this.condition = condition;
+        this.branch = branch;
+        this.distance = distance;
     }
 
     public int getId() {
@@ -28,12 +32,24 @@ public class Bicycle {
         return price;
     }
 
+    public Branch getBranch() {
+        return branch;
+    }
+
+    public double getDistance() {
+        return distance;
+    }
+
     public void setModel(String type) {
         this.type = type;
     }
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public void setDistance(double distance) {
+        this.distance = distance;
     }
 
     @Override

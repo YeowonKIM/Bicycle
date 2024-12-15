@@ -24,25 +24,38 @@ public class OutputView {
         System.out.println(SHOW_BICYCLE.getMessage());
         int num = 1;
         for (Bicycle b : bicycles.values()) {
-            System.out.println(num++ + ") " + "type: " + b.getType() + ", " + "price: " + b.getPrice() + ", " + "condition: " + b.getCondition());
+            System.out.println(num++ + ") " + "type: " + b.getType() + ", " + "price: " + b.getPrice() + ", " + "condition: " + b.getCondition() + ", " + "branch: " + b.getBranch().getName());
         }
     }
 
     public void showBicyclesList(List<Bicycle> bicycles) {
         int num = 1;
         for (Bicycle b : bicycles) {
-            System.out.println(num++ + ") " + "type: " + b.getType() + ", " + "price: " + b.getPrice() + ", " + "condition: " + b.getCondition());
+            System.out.println(num++ + ") " + "type: " + b.getType() + ", " + "price: " + b.getPrice() + ", " + "condition: " + b.getCondition()+ ", " + "branch: " + b.getBranch().getName());
+        }
+    }
+
+    public void showBicyclesListWithDistance(List<Bicycle> bicycles) {
+        int num = 1;
+        for (Bicycle b : bicycles) {
+            System.out.println(num++ + ") " + "type: " + b.getType() + ", " + "price: " + b.getPrice() + ", " + "condition: " + b.getCondition()+ ", "
+                    + "branch: " + b.getBranch().getName() + ", " + "distance: " + b.getDistance());
         }
     }
 
     public void showBicyclesByPriceInfo() {
         System.out.println();
-        System.out.println(SORTING.getMessage());
+        System.out.println(SORTING_PRICE.getMessage());
     }
 
     public void showBicyclesByPriceInfoMessage(String message) {
         System.out.println();
         System.out.println(message);
+    }
+
+    public void showBicyclesByDistanceInfo() {
+        System.out.println();
+        System.out.println(SORTING_DISTANCE.getMessage());
     }
 
 }
