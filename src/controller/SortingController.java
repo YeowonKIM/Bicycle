@@ -25,13 +25,14 @@ public class SortingController {
         sortingService.existingBicycles();
 
         // Sorting 1 - Java sorted() method
-        outputView.showBuiltinSortByPriceInfo();
-        List<Bicycle> bicycles = sortingService.sortBicyclesByPrice();
-        outputView.showBicyclesList(bicycles);
+        sorting(sortingService.sortBicyclesByPrice());
 
         // Sorting 2 - Insertion Sort
+        sorting(sortingService.insertionSortBicyclesByPrice());
+    }
+
+    private void sorting(List<Bicycle> bicycles) {
         outputView.showInsertionSortByPriceInfo();
-        List<Bicycle> insertionSortedBicycles = sortingService.insertionSortBicyclesByPrice();
-        outputView.showBicyclesList(insertionSortedBicycles);
+        outputView.showBicyclesList(bicycles);
     }
 }
