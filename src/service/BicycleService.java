@@ -77,6 +77,12 @@ public class BicycleService {
         bicycle.update(type, price, condition, branch);
     }
 
+    public void deleteBike(String input) {
+        Bicycle bicycle = bicycleRepository.getBicycleById(Integer.parseInt(input))
+                .orElseThrow(() -> new RuntimeException("Bicycle not found"));
+        bicycleRepository.deleteBicycle(bicycle.getId());
+    }
+
     public List<Bicycle> sortBicyclesByPrice() {
         return bicycleRepository.getBicycles().values()
                 .stream()
