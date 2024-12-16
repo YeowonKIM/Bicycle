@@ -47,6 +47,8 @@ public class SortingController {
         sortByDistance(input, JAVA_SORT_DISTANCE.getMessage(), sortingDistanceService.sortBicyclesByDistance(input));
         // Sorting 2 - Insertion Sort
         sortByDistance(input, INSERTION_SORT_DISTANCE.getMessage(), sortingDistanceService.insertionSortBicyclesByDistance());
+        // Sorting 3 - Merge Sort
+        sortByDistance(input, Merge_SORT_DISTANCE.getMessage(), sortingDistanceService.mergeSortBicyclesByDistance());
     }
 
     private void sortByDistance(String input, String message, List<Bicycle> bicyclesSortedDistance) {
