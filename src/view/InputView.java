@@ -35,6 +35,28 @@ public class InputView {
         return input;
     }
 
+    public String changeBicycleInfo() {
+        System.out.println();
+        System.out.println(CHANGE_BICYCLE_INFO.getMessage());
+        System.out.println(ENTER_NUMBER.getMessage());
+        String input = scanner.nextLine();
+        return input;
+    }
+
+    public String changeBicycleDetail() {
+        System.out.println(ENTER_BICYCLE_CHANGE.getMessage());
+        String input = scanner.nextLine();
+        return input;
+    }
+
+    public String deleteBicycleInfo() {
+        System.out.println();
+        System.out.println(DELETE_A_BICYCYLE.getMessage());
+        System.out.println(ENTER_BICYCLE_DELETE.getMessage());
+        String input = scanner.nextLine();
+        return input;
+    }
+
     public void getDivisionLine() {
         System.out.println();
         System.out.println("--------------------------------------------------------");

@@ -63,7 +63,24 @@ public class BicycleService {
 
     public void readBicycle() {
         Map<Integer, Bicycle> bicycles = bicycleRepository.getBicycles();
-        outputView.showBicycleMap(bicycles);
+        outputView.showBicycles(bicycles);
+    }
+
+    public void updateBike(String input1, String input2) {
+        Bicycle bicycle = bicycleRepository.getBicycleById(Integer.parseInt(input1))
+                .orElseThrow(() -> new RuntimeException("Bicycle not found"));
+        String[] parts = input2.split(", ");
+        String type = parts[0];
+        double price = Double.parseDouble(parts[1]);
+        String condition = parts[2];
+        Branch branch = findBranch(parts[3]);
+        bicycle.update(type, price, condition, branch);
+    }
+
+    public void deleteBike(String input) {
+        Bicycle bicycle = bicycleRepository.getBicycleById(Integer.parseInt(input))
+                .orElseThrow(() -> new RuntimeException("Bicycle not found"));
+        bicycleRepository.deleteBicycle(bicycle.getId());
     }
 
     public List<Bicycle> sortBicyclesByPrice() {

@@ -27,6 +27,12 @@ public class BicycleController {
         List<String> inputs = inputView.addBicycleInfo();
         bicycleService.addBicycles(inputs);
         bicycleService.readBicycle();
+        String inputUpdate = inputView.changeBicycleInfo();
+        String inputDetails = inputView.changeBicycleDetail();
+        bicycleService.updateBike(inputUpdate, inputDetails);
+        bicycleService.readBicycle();
+        String inputDelete = inputView.deleteBicycleInfo();
+        bicycleService.deleteBike(inputDelete);
 
         // Sorting bicycles by price
         outputView.showBicyclesByPriceInfo();

@@ -52,6 +52,13 @@ public class Bicycle {
         this.distance = distance;
     }
 
+    public void update(String type, double price, String condition, Branch branch) {
+        this.type = type;
+        this.price = price;
+        this.condition = condition;
+        this.branch = branch;
+    }
+
     @Override
     public String toString() {
         return "Bike{" +
