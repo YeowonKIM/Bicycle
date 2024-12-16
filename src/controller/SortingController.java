@@ -2,7 +2,8 @@ package controller;
 
 import domain.Bicycle;
 import service.BicycleService;
-import service.SortingService;
+import service.SortingDistanceService;
+import service.SortingPriceService;
 import view.InputView;
 import view.OutputView;
 
@@ -14,33 +15,47 @@ public class SortingController {
     private final InputView inputView;
     private final OutputView outputView;
     private final BicycleService bicycleService;
-    private final SortingService sortingService;
+    private final SortingPriceService sortingPriceService;
+    private final SortingDistanceService sortingDistanceService;
 
     public SortingController() {
         this.inputView = new InputView();
         this.outputView = new OutputView();
         this.bicycleService = new BicycleService();
-        this.sortingService = new SortingService();
+        this.sortingPriceService = new SortingPriceService();
+        this.sortingDistanceService = new SortingDistanceService();
     }
 
     public void runSortingNavigator() {
-        sortingService.existingBicycles();
+        sortingPriceService.existingBicycles();
+        sortingDistanceService.existingBicycles();
 
         // Sorting 1 - Java sorted() method
-        sortBicycles(JAVA_SORT.getMessage(), sortingService.sortBicyclesByPrice());
-
+        sortBicyclesByPrice(JAVA_SORT_PRICE.getMessage(), sortingPriceService.sortBicyclesByPrice());
         // Sorting 2 - Insertion Sort
-        sortBicycles(INSERTION_SORT.getMessage(), sortingService.insertionSortBicyclesByPrice());
-
+        sortBicyclesByPrice(INSERTION_SORT_PRICE.getMessage(), sortingPriceService.insertionSortBicyclesByPrice());
         // Sorting 3 - Merge Sort
-        sortBicycles(Merge_SORT.getMessage(), sortingService.mergeSortBicyclesByPrice());
-
+        sortBicyclesByPrice(Merge_SORT_PRICE.getMessage(), sortingPriceService.mergeSortBicyclesByPrice());
         // Sorting 4 - Tim Sort
-        sortBicycles(TIM_SORT.getMessage(), sortingService.timSortBicyclesByPrice());
+        sortBicyclesByPrice(TIM_SORT_PRICE.getMessage(), sortingPriceService.timSortBicyclesByPrice());
+
+        // MyLocation
+        inputView.getDivisionLine();
+        String input = inputView.addMyLocation();
+
+        // Sorting 1 - Java sorted() method
+        sortByDistance(input, JAVA_SORT_DISTANCE.getMessage(), sortingDistanceService.sortBicyclesByDistance(input));
+        // Sorting 2 - Insertion Sort
+        sortByDistance(input, INSERTION_SORT_DISTANCE.getMessage(), sortingDistanceService.insertionSortBicyclesByDistance());
     }
 
-    private void sortBicycles(String message, List<Bicycle> bicycles) {
-        outputView.showBicyclesByPriceInfoMessage(message);
+    private void sortByDistance(String input, String message, List<Bicycle> bicyclesSortedDistance) {
+        outputView.showBicyclesMessage(message);
+        outputView.showBicyclesListWithDistance(bicyclesSortedDistance);
+    }
+
+    private void sortBicyclesByPrice(String message, List<Bicycle> bicycles) {
+        outputView.showBicyclesMessage(message);
         outputView.showBicyclesList(bicycles);
     }
 }

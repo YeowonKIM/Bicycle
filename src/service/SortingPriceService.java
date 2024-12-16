@@ -12,7 +12,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class SortingService {
+public class SortingPriceService {
     private final BicycleRepository bicycleRepository;
     private final BranchRepository branchRepository;
     private final OutputView outputView;
@@ -41,7 +41,7 @@ public class SortingService {
         bicycleRepository.saveBicycle(bicycle4);
     }
 
-    public SortingService() {
+    public SortingPriceService() {
         this.bicycleRepository = new BicycleRepository();
         this.branchRepository = new BranchRepository();
         this.outputView = new OutputView();

@@ -48,7 +48,7 @@ public class OutputView {
         System.out.println(SORTING_PRICE.getMessage());
     }
 
-    public void showBicyclesByPriceInfoMessage(String message) {
+    public void showBicyclesMessage(String message) {
         System.out.println();
         System.out.println(message);
     }

@@ -30,9 +30,14 @@ public class InputView {
     }
 
     public String addMyLocation() {
-        System.out.println();
         System.out.println(ADD_MY_LOCATION_INFO.getMessage());
         String input = scanner.nextLine();
         return input;
     }
+
+    public void getDivisionLine() {
+        System.out.println();
+        System.out.println("--------------------------------------------------------");
+    }
+
 }
