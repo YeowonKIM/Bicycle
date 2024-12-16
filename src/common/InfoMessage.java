@@ -5,8 +5,11 @@ public enum InfoMessage {
     ADD_BICYCLE("[Add a bicycle]"),
     ADD_BICYCLE_INFO("Enter Bicycle model, price, condition, and branch (e.g., electric, 40, good): "),
     ADD_MY_LOCATION_INFO("Enter your current location (e.g., 48.8191, 2.3627): "),
+    ENTER_NUMBER("Enter the number of the bicycle for which you want to change information."),
+    ENTER_BICYCLE_CHANGE("Enter the bicycle information you wish to change in order."),
     STOP_ADDING("Enter 'exit' at any time to stop adding bicycles."),
     SHOW_BICYCLE("[View bicycles]"),
+    CHANGE_BICYCLE_INFO("[Change bicycle information]"),
 
     // Sorting bicycles by price
     SORTING_PRICE("[Sort by price]"),

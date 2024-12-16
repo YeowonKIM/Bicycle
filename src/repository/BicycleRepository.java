@@ -2,7 +2,6 @@ package repository;
 
 import domain.Bicycle;
 
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -18,5 +17,7 @@ public class BicycleRepository {
         return bicycleStore;
     }
 
-
+    public Optional<Bicycle> getBicycleById(int id) {
+        return Optional.ofNullable(bicycleStore.get(id));
+    }
 }

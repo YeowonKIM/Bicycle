@@ -19,7 +19,7 @@ public class OutputView {
         System.out.println(GREETING.getMessage());
     }
 
-    public void showBicycleMap(Map<Integer, Bicycle> bicycles) {
+    public void showBicycles(Map<Integer, Bicycle> bicycles) {
         System.out.println();
         System.out.println(SHOW_BICYCLE.getMessage());
         int num = 1;
