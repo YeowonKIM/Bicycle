@@ -146,6 +146,93 @@ public class SortingDistanceService {
         }
     }
 
+    // Sorting 4 - Tim Sort
+    private static final int RUN = 32;
+    public List<Bicycle> timSortBicyclesByDistance() {
+        List<Bicycle> bicycleList = getBicycleList();
+        timSort(bicycleList, bicycleList.size());
+        return bicycleList;
+    }
+
+    // Timsort implementation
+    private void timSort(List<Bicycle> list, int n) {
+        // Step 1: Apply insertion sort to small chunks (size <= RUN)
+        for (int i = 0; i < n; i += RUN) {
+            insertionSort(list, i, Math.min((i + RUN - 1), (n - 1)));
+        }
+
+        // Step 2: Merge sorted runs
+        for (int size = RUN; size < n; size = 2 * size) {
+            for (int left = 0; left < n; left += 2 * size) {
+                int mid = left + size - 1;
+                int right = Math.min((left + 2 * size - 1), (n - 1));
+
+                if (mid < right) {
+                    merge2(list, left, mid, right);
+                }
+            }
+        }
+    }
+
+    // Insertion sort for small chunks
+    private void insertionSort(List<Bicycle> list, int left, int right) {
+        for (int i = left + 1; i <= right; i++) {
+            Bicycle key = list.get(i);
+            int j = i - 1;
+
+            // Move elements that are greater than key
+            while (j >= left && list.get(j).getDistance() > key.getDistance()) {
+                list.set(j + 1, list.get(j));
+                j--;
+            }
+            list.set(j + 1, key);
+        }
+    }
+
+    // Merge function to merge two sorted runs
+    private void merge2(List<Bicycle> list, int left, int mid, int right) {
+        int len1 = mid - left + 1;
+        int len2 = right - mid;
+
+        // Temporary arrays to hold the data
+        List<Bicycle> leftList = new ArrayList<>(len1);
+        List<Bicycle> rightList = new ArrayList<>(len2);
+
+        for (int i = 0; i < len1; i++) {
+            leftList.add(list.get(left + i));
+        }
+        for (int j = 0; j < len2; j++) {
+            rightList.add(list.get(mid + 1 + j));
+        }
+
+        // Merge the temporary arrays
+        int i = 0, j = 0, k = left;
+        while (i < len1 && j < len2) {
+            if (leftList.get(i).getDistance() <= rightList.get(j).getDistance()) {
+                list.set(k, leftList.get(i));
+                i++;
+            } else {
+                list.set(k, rightList.get(j));
+                j++;
+            }
+            k++;
+        }
+
+        // Copy remaining elements of leftList, if any
+        while (i < len1) {
+            list.set(k, leftList.get(i));
+            i++;
+            k++;
+        }
+
+        // Copy remaining elements of rightList, if any
+        while (j < len2) {
+            list.set(k, rightList.get(j));
+            j++;
+            k++;
+        }
+    }
+
     private List<Bicycle> getBicycleList() {
         Collection<Bicycle> bicycles = bicycleRepository.getBicycles().values();
         List<Bicycle> bicycleList = new ArrayList<>(bicycles);
