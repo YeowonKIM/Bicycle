@@ -51,7 +51,7 @@ public class BicycleController {
         // Filtering by price range
         outputView.getDivisionLine();
         String priceRangeInput = inputView.filterByPriceInfo();
-        List<Bicycle> bicyclesFiltered = bicycleService.filterBicyclesByPrice(priceRangeInput);
+        List<Bicycle> bicyclesFiltered = bicycleService.filterBicyclesByPriceRange(priceRangeInput);
         outputView.showBicyclesList(bicyclesFiltered);
     }
 }

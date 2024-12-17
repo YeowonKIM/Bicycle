@@ -2,6 +2,7 @@ package service;
 
 import domain.Bicycle;
 import domain.Branch;
+import domain.ExecutionResult;
 import repository.BicycleRepository;
 import repository.BranchRepository;
 import view.InputView;
@@ -163,13 +164,70 @@ public class BicycleService {
             b.setDistance(distance);
         }
 
-        return bicycleRepository.getBicycles().values()
-                .stream()
-                .sorted(Comparator.comparingDouble(Bicycle::getDistance))
-                .collect(Collectors.toList());
+        List<Bicycle> bicycleList = getBicycleList();
+        mergeSortDistance(bicycleList, 0, bicycleList.size() - 1);
+
+        return bicycleList;
     }
 
-    public List<Bicycle> filterBicyclesByPrice(String input) {
+    private void mergeSortDistance(List<Bicycle> list, int left, int right) {
+        if (left < right) {
+            int mid = (left + right) / 2;
+
+            // Recursively sort the left and right halves
+            mergeSortDistance(list, left, mid);
+            mergeSortDistance(list, mid + 1, right);
+
+            // Merge the sorted halves
+            mergeDistance(list, left, mid, right);
+        }
+    }
+
+    // Merge two sorted halves of the list
+    private void mergeDistance(List<Bicycle> list, int left, int mid, int right) {
+        int n1 = mid - left + 1;
+        int n2 = right - mid;
+
+        // Create temporary lists for left and right sublists
+        List<Bicycle> leftList = new ArrayList<>(n1);
+        List<Bicycle> rightList = new ArrayList<>(n2);
+
+        for (int i = 0; i < n1; i++) {
+            leftList.add(list.get(left + i));
+        }
+        for (int j = 0; j < n2; j++) {
+            rightList.add(list.get(mid + 1 + j));
+        }
+
+        // Merge the two sublists back into the original list
+        int i = 0, j = 0;
+        int k = left;
+        while (i < n1 && j < n2) {
+            if (leftList.get(i).getDistance() <= rightList.get(j).getDistance()) {
+                list.set(k, leftList.get(i));
+                i++;
+            } else {
+                list.set(k, rightList.get(j));
+                j++;
+            }
+            k++;
+        }
+
+        // Copy any remaining elements from the left sublist
+        while (i < n1) {
+            list.set(k, leftList.get(i));
+            i++;
+            k++;
+        }
+
+        while (j < n2) {
+            list.set(k, rightList.get(j));
+            j++;
+            k++;
+        }
+    }
+
+    public List<Bicycle> filterBicyclesByPriceRange(String input) {
         String[] parts = input.split(" - ");
         double minPrice = Double.parseDouble(parts[0]);
         double maxPrice = Double.parseDouble(parts[1]);
