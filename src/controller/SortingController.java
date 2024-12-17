@@ -40,7 +40,7 @@ public class SortingController {
         sortBicyclesByPrice(TIM_SORT_PRICE.getMessage(), sortingPriceService.timSortBicyclesByPrice());
 
         // MyLocation
-        inputView.getDivisionLine();
+        outputView.getDivisionLine();
         String input = inputView.addMyLocation();
 
         // Sorting 1 - Java sorted() method

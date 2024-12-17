@@ -57,9 +57,12 @@ public class InputView {
         return input;
     }
 
-    public void getDivisionLine() {
+    public String filterByPriceInfo() {
         System.out.println();
-        System.out.println("--------------------------------------------------------");
+        System.out.println(FILTERING_PRICE.getMessage());
+        System.out.println(ENTER_PRICE_RANGE.getMessage());
+        String input = scanner.nextLine();
+        return input;
     }
 
 }

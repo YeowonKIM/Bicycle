@@ -33,8 +33,10 @@ public class BicycleController {
         bicycleService.readBicycle();
         String inputDelete = inputView.deleteBicycleInfo();
         bicycleService.deleteBike(inputDelete);
+        bicycleService.readBicycle();
 
         // Sorting bicycles by price
+        outputView.getDivisionLine();
         outputView.showBicyclesByPriceInfo();
         List<Bicycle> bicycles = bicycleService.sortBicyclesByPrice();
         outputView.showBicyclesList(bicycles);
@@ -44,5 +46,11 @@ public class BicycleController {
         String input = inputView.addMyLocation();
         List<Bicycle> bicyclesSortedDistance = bicycleService.sortBicyclesByDistance(input);
         outputView.showBicyclesListWithDistance(bicyclesSortedDistance);
+
+        // Filtering by price range
+        outputView.getDivisionLine();
+        String priceRangeInput = inputView.filterByPriceInfo();
+        List<Bicycle> bicyclesFiltered = bicycleService.filterBicyclesByPrice(priceRangeInput);
+        outputView.showBicyclesList(bicyclesFiltered);
     }
 }

@@ -39,7 +39,7 @@ public class OutputView {
         int num = 1;
         for (Bicycle b : bicycles) {
             System.out.println(num++ + ") " + "type: " + b.getType() + ", " + "price: " + b.getPrice() + ", " + "condition: " + b.getCondition()+ ", "
-                    + "branch: " + b.getBranch().getName() + ", " + "distance: " + b.getDistance());
+                    + "branch: " + b.getBranch().getName() + ", " + "distance: " + b.getDistance() + "km");
         }
     }
 
@@ -56,6 +56,11 @@ public class OutputView {
     public void showBicyclesByDistanceInfo() {
         System.out.println();
         System.out.println(SORTING_DISTANCE.getMessage());
+    }
+
+    public void getDivisionLine() {
+        System.out.println();
+        System.out.println("----------------------------------------------------------------------------------------------------------------------");
     }
 
 }
