@@ -65,9 +65,4 @@ public class InputView {
         return input;
     }
 
-    public void getDivisionLine() {
-        System.out.println();
-        System.out.println("---------------------------------------------------------------------------------");
-    }
-
 }

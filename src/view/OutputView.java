@@ -58,4 +58,9 @@ public class OutputView {
         System.out.println(SORTING_DISTANCE.getMessage());
     }
 
+    public void getDivisionLine() {
+        System.out.println();
+        System.out.println("----------------------------------------------------------------------------------------------------------------------");
+    }
+
 }

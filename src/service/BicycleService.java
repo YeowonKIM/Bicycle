@@ -117,6 +117,24 @@ public class BicycleService {
         double minPrice = Double.parseDouble(parts[0]);
         double maxPrice = Double.parseDouble(parts[1]);
 
+        List<Bicycle> filteredBicycles = new ArrayList<>();
+
+        for (Bicycle bicycle : bicycleRepository.getBicycles().values()) {
+            if (bicycle.getPrice() >= minPrice && bicycle.getPrice() <= maxPrice) {
+                filteredBicycles.add(bicycle);
+            }
+        }
+
+        sortByPrice(filteredBicycles);
+
+        return filteredBicycles;
+    }
+
+    public List<Bicycle> filterBicyclesByPrice2(String input) {
+        String[] parts = input.split(" - ");
+        double minPrice = Double.parseDouble(parts[0]);
+        double maxPrice = Double.parseDouble(parts[1]);
+
         return bicycleRepository.getBicycles().values()
                 .stream()
                 .filter(b -> b.getPrice() >= minPrice && b.getPrice() <= maxPrice)
@@ -163,6 +181,11 @@ public class BicycleService {
 
         // Calculate the distance
         return EARTH_RADIUS_KM * c;
+    }
+
+    private static void sortByPrice(List<Bicycle> filteredBicycles) {
+        filteredBicycles.stream().sorted(Comparator.comparingDouble(Bicycle::getPrice))
+                .collect(Collectors.toList());
     }
 
 }

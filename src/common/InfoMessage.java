@@ -5,8 +5,8 @@ public enum InfoMessage {
 
     // CRUD
     ADD_BICYCLE("[Add a bicycle]"),
-    ADD_BICYCLE_INFO("Enter Bicycle model, price, condition, and branch (e.g., electric, 40, good): "),
-    ADD_MY_LOCATION_INFO("Enter your current location (e.g., 48.8191, 2.3627): "),
+    ADD_BICYCLE_INFO("Enter Bicycle model, price, condition, and branch (e.g., mechanical, 40, good, Tour Eiffel): "),
+    ADD_MY_LOCATION_INFO("Enter your current location (e.g., EPITA kremlin bicêtre 48.8191, 2.3627): "),
     ENTER_NUMBER("Enter the number of the bicycle for which you want to change information."),
     ENTER_BICYCLE_CHANGE("Enter the bicycle information you want to change in order."),
     ENTER_BICYCLE_DELETE("Enter the bicycle number you want to delete in order."),
@@ -31,7 +31,7 @@ public enum InfoMessage {
 
     // Filtering
     FILTERING_PRICE("[Filter by price range]"),
-    ENTER_PRICE_RANGE("Enter the minimum and maximum price range for the bike you want. (e.g. 20 - 50)")
+    ENTER_PRICE_RANGE("Enter the minimum and maximum price range for the bike you want. (e.g. 50 - 90)")
     ;
 
     InfoMessage(String message) {
