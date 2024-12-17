@@ -45,13 +45,13 @@ public class SortingController {
         String input = inputView.addMyLocation();
 
         // Sorting 1 - Java sorted() method
-        sortByDistance(input, JAVA_SORT_DISTANCE.getMessage(), sortingDistanceService.sortBicyclesByDistance(input));
+        sortByDistance(JAVA_SORT_DISTANCE.getMessage(), sortingDistanceService.sortBicyclesByDistance(input));
         // Sorting 2 - Insertion Sort
-        sortByDistance(input, INSERTION_SORT_DISTANCE.getMessage(), sortingDistanceService.insertionSortBicyclesByDistance());
+        sortByDistance(INSERTION_SORT_DISTANCE.getMessage(), sortingDistanceService.insertionSortBicyclesByDistance());
         // Sorting 3 - Merge Sort
-        sortByDistance(input, Merge_SORT_DISTANCE.getMessage(), sortingDistanceService.mergeSortBicyclesByDistance());
+        sortByDistance(Merge_SORT_DISTANCE.getMessage(), sortingDistanceService.mergeSortBicyclesByDistance());
         // Sorting 4 - Tim Sort
-        sortByDistance(input, TIM_SORT_DISTANCE.getMessage(), sortingDistanceService.timSortBicyclesByDistance());
+        sortByDistance(TIM_SORT_DISTANCE.getMessage(), sortingDistanceService.timSortBicyclesByDistance());
     }
 
     private void sortBicyclesByPrice(String message, ExecutionResult result) {
@@ -59,13 +59,9 @@ public class SortingController {
         outputView.showExecutionResult(result);
     }
 
-    private void sortByDistance(String input, String message, List<Bicycle> bicyclesSortedDistance) {
+    private void sortByDistance(String message, ExecutionResult result) {
         outputView.showBicyclesMessage(message);
-        outputView.showBicyclesListWithDistance(bicyclesSortedDistance);
+        outputView.showResultWithDistance(result);
     }
 
-    private void sortBicyclesByPrice(String message, List<Bicycle> bicycles) {
-        outputView.showBicyclesMessage(message);
-        outputView.showBicyclesList(bicycles);
-    }
 }

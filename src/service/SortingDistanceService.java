@@ -2,6 +2,7 @@ package service;
 
 import domain.Bicycle;
 import domain.Branch;
+import domain.ExecutionResult;
 import repository.BicycleRepository;
 import repository.BranchRepository;
 import view.OutputView;
@@ -25,7 +26,9 @@ public class SortingDistanceService {
         this.outputView = new OutputView();
     }
 
-    public List<Bicycle> sortBicyclesByDistance(String input) {
+    public ExecutionResult sortBicyclesByDistance(String input) {
+        long startTime = System.nanoTime();
+
         String[] parts = input.split(", ");
         double latitude = Double.parseDouble(parts[0]);
         double longitude = Double.parseDouble(parts[1]);
@@ -37,19 +40,31 @@ public class SortingDistanceService {
             b.setDistance(distance);
         }
 
-        return bicycleRepository.getBicycles().values()
+        List<Bicycle> bicycleList = bicycleRepository.getBicycles().values()
                 .stream()
                 .sorted(Comparator.comparingDouble(Bicycle::getDistance))
                 .collect(Collectors.toList());
+
+        long endTime = System.nanoTime();
+        long duration = endTime - startTime;
+
+        return new ExecutionResult(bicycleList, duration);
     }
 
     // Sorting 2 - Insertion Sort
-    public List<Bicycle> insertionSortBicyclesByDistance() {
-        List<Bicycle> bicycleList = getBicycleList();
+    public ExecutionResult insertionSortBicyclesByDistance() {
+        Long startTime = System.nanoTime();
 
-        for (int i = 1; i < bicycleList.size(); i++) {
+        List<Bicycle> bicycleList = getBicycleList();
+        int n = bicycleList.size();
+
+        for (int i = 1; i < n; i++) {
             Bicycle key = bicycleList.get(i);
             int j = i - 1;
+
+            if (bicycleList.get(j).getPrice() <= key.getPrice()) {
+                continue;
+            }
 
             while (j >= 0 && bicycleList.get(j).getDistance() > key.getDistance()) {
                 bicycleList.set(j + 1, bicycleList.get(j));
@@ -58,14 +73,23 @@ public class SortingDistanceService {
             bicycleList.set(j + 1, key);
         }
 
-        return bicycleList;
+        long endTime = System.nanoTime();
+        long duration = endTime - startTime;
+
+        return new ExecutionResult(bicycleList, duration);
     }
 
     // Sorting 3 - Merge Sort
-    public List<Bicycle> mergeSortBicyclesByDistance() {
+    public ExecutionResult mergeSortBicyclesByDistance() {
+        long startTime = System.nanoTime();
+
         List<Bicycle> bicycleList = getBicycleList();
         mergeSort(bicycleList, 0, bicycleList.size() - 1);
-        return bicycleList;
+
+        long endTime = System.nanoTime();
+        long duration = endTime - startTime;
+
+        return new ExecutionResult(bicycleList, duration);
     }
 
     private void mergeSort(List<Bicycle> list, int left, int right) {
@@ -127,10 +151,16 @@ public class SortingDistanceService {
 
     // Sorting 4 - Tim Sort
     private static final int RUN = 32;
-    public List<Bicycle> timSortBicyclesByDistance() {
+    public ExecutionResult timSortBicyclesByDistance() {
+        long startTime = System.nanoTime();
+
         List<Bicycle> bicycleList = getBicycleList();
         timSort(bicycleList, bicycleList.size());
-        return bicycleList;
+
+        long endTime = System.nanoTime();
+        long duration = endTime - startTime;
+
+        return new ExecutionResult(bicycleList, duration);
     }
 
     // Timsort implementation

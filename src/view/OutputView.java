@@ -52,6 +52,15 @@ public class OutputView {
         }
     }
 
+    public void showResultWithDistance(ExecutionResult result) {
+        int num = 1;
+        for (Bicycle b : result.getBicycles()) {
+            System.out.println(num++ + ") " + "type: " + b.getType() + ", " + "price: " + b.getPrice() + ", " + "condition: " + b.getCondition()+ ", "
+                    + "branch: " + b.getBranch().getName() + ", " + "distance: " + b.getDistance() + "km");
+        }
+        System.out.println("=> Execution time: " + result.getDurationSeconds() + " nanoseconds");
+    }
+
     public void showBicyclesByPriceInfo() {
         System.out.println();
         System.out.println(SORTING_PRICE.getMessage());
