@@ -1,6 +1,7 @@
 package controller;
 
 import domain.Bicycle;
+import domain.ExecutionResult;
 import service.BicycleService;
 import service.SortingDistanceService;
 import service.SortingPriceService;
@@ -51,6 +52,11 @@ public class SortingController {
         sortByDistance(input, Merge_SORT_DISTANCE.getMessage(), sortingDistanceService.mergeSortBicyclesByDistance());
         // Sorting 4 - Tim Sort
         sortByDistance(input, TIM_SORT_DISTANCE.getMessage(), sortingDistanceService.timSortBicyclesByDistance());
+    }
+
+    private void sortBicyclesByPrice(String message, ExecutionResult result) {
+        outputView.showBicyclesMessage(message);
+        outputView.showExecutionResult(result);
     }
 
     private void sortByDistance(String input, String message, List<Bicycle> bicyclesSortedDistance) {

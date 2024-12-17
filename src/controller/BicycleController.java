@@ -38,7 +38,8 @@ public class BicycleController {
         // Sorting bicycles by price
         outputView.getDivisionLine();
         outputView.showBicyclesByPriceInfo();
-        List<Bicycle> bicycles = bicycleService.sortBicyclesByPrice();
+        List<Bicycle> bicycleList = bicycleService.getBicycleList();
+        List<Bicycle> bicycles = bicycleService.sortBicyclesByPrice(bicycleList);
         outputView.showBicyclesList(bicycles);
 
         // Sorting bicycles by distance

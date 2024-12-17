@@ -1,6 +1,7 @@
 package view;
 
 import domain.Bicycle;
+import domain.ExecutionResult;
 import repository.BicycleRepository;
 import service.BicycleService;
 
@@ -35,6 +36,14 @@ public class OutputView {
         }
     }
 
+    public void showExecutionResult(ExecutionResult result) {
+        int num = 1;
+        for (Bicycle b : result.getBicycles()) {
+            System.out.println(num++ + ") " + "type: " + b.getType() + ", " + "price: " + b.getPrice() + ", " + "condition: " + b.getCondition()+ ", " + "branch: " + b.getBranch().getName());
+        }
+        System.out.println("=> Execution time: " + result.getDurationSeconds() + " nanoseconds");
+    }
+
     public void showBicyclesListWithDistance(List<Bicycle> bicycles) {
         int num = 1;
         for (Bicycle b : bicycles) {
@@ -56,6 +65,10 @@ public class OutputView {
     public void showBicyclesByDistanceInfo() {
         System.out.println();
         System.out.println(SORTING_DISTANCE.getMessage());
+    }
+
+    public void getExecutionTime(long duration) {
+        System.out.println("=> Execution time: " + duration + " nanoseconds");
     }
 
     public void getDivisionLine() {

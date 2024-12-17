@@ -87,12 +87,69 @@ public class BicycleService {
         bicycleRepository.deleteBicycle(bicycle.getId());
     }
 
-    public List<Bicycle> sortBicyclesByPrice() {
-        return bicycleRepository.getBicycles().values()
-                .stream()
-                .sorted(Comparator.comparingDouble(Bicycle::getPrice))
-                .collect(Collectors.toList());
+    // Sorting bicycles by price - Start (Merge Sort)
+    public List<Bicycle> sortBicyclesByPrice(List<Bicycle> bicycleList) {
+        mergeSort(bicycleList, 0, bicycleList.size() - 1);
+        return bicycleList;
     }
+
+    private void mergeSort(List<Bicycle> list, int left, int right) {
+        if (left < right) {
+            int mid = (left + right) / 2;
+
+            // Recursively sort the left and right halves
+            mergeSort(list, left, mid);
+            mergeSort(list, mid + 1, right);
+
+            // Merge the sorted halves
+            merge(list, left, mid, right);
+        }
+    }
+
+    // Merge two sorted halves of the list
+    private void merge(List<Bicycle> list, int left, int mid, int right) {
+        int n1 = mid - left + 1;
+        int n2 = right - mid;
+
+        // Create temporary lists for left and right sublists
+        List<Bicycle> leftList = new ArrayList<>(n1);
+        List<Bicycle> rightList = new ArrayList<>(n2);
+
+        for (int i = 0; i < n1; i++) {
+            leftList.add(list.get(left + i));
+        }
+        for (int j = 0; j < n2; j++) {
+            rightList.add(list.get(mid + 1 + j));
+        }
+
+        // Merge the two sublists back into the original list
+        int i = 0, j = 0;
+        int k = left;
+        while (i < n1 && j < n2) {
+            if (leftList.get(i).getPrice() <= rightList.get(j).getPrice()) {
+                list.set(k, leftList.get(i));
+                i++;
+            } else {
+                list.set(k, rightList.get(j));
+                j++;
+            }
+            k++;
+        }
+
+        // Copy any remaining elements from the left sublist
+        while (i < n1) {
+            list.set(k, leftList.get(i));
+            i++;
+            k++;
+        }
+
+        while (j < n2) {
+            list.set(k, rightList.get(j));
+            j++;
+            k++;
+        }
+    }
+    // Sorting bicycles by price - End
 
     public List<Bicycle> sortBicyclesByDistance(String input) {
         String[] parts = input.split(", ");
@@ -125,27 +182,9 @@ public class BicycleService {
             }
         }
 
-        sortByPrice(filteredBicycles);
+        sortBicyclesByPrice(filteredBicycles);
 
         return filteredBicycles;
-    }
-
-    public List<Bicycle> filterBicyclesByPrice2(String input) {
-        String[] parts = input.split(" - ");
-        double minPrice = Double.parseDouble(parts[0]);
-        double maxPrice = Double.parseDouble(parts[1]);
-
-        return bicycleRepository.getBicycles().values()
-                .stream()
-                .filter(b -> b.getPrice() >= minPrice && b.getPrice() <= maxPrice)
-                .sorted(Comparator.comparingDouble(Bicycle::getPrice))
-                .collect(Collectors.toList());
-    }
-
-    private List<Bicycle> getBicycleList() {
-        Collection<Bicycle> bicycles = bicycleRepository.getBicycles().values();
-        List<Bicycle> bicycleList = new ArrayList<>(bicycles);
-        return bicycleList;
     }
 
     public Branch findBranch(String name) {
@@ -183,8 +222,21 @@ public class BicycleService {
         return EARTH_RADIUS_KM * c;
     }
 
-    private static void sortByPrice(List<Bicycle> filteredBicycles) {
-        filteredBicycles.stream().sorted(Comparator.comparingDouble(Bicycle::getPrice))
+    public List<Bicycle> getBicycleList() {
+        Collection<Bicycle> bicycles = bicycleRepository.getBicycles().values();
+        List<Bicycle> bicycleList = new ArrayList<>(bicycles);
+        return bicycleList;
+    }
+
+    public List<Bicycle> filterBicyclesByPrice2(String input) {
+        String[] parts = input.split(" - ");
+        double minPrice = Double.parseDouble(parts[0]);
+        double maxPrice = Double.parseDouble(parts[1]);
+
+        return bicycleRepository.getBicycles().values()
+                .stream()
+                .filter(b -> b.getPrice() >= minPrice && b.getPrice() <= maxPrice)
+                .sorted(Comparator.comparingDouble(Bicycle::getPrice))
                 .collect(Collectors.toList());
     }
 
