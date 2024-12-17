@@ -2,6 +2,7 @@ package service;
 
 import domain.Bicycle;
 import domain.Branch;
+import domain.ExecutionResult;
 import repository.BicycleRepository;
 import repository.BranchRepository;
 import view.OutputView;
@@ -25,21 +26,35 @@ public class SortingPriceService {
         this.outputView = new OutputView();
     }
 
-    // Sorting 1 - Java sorted() method
-    public List<Bicycle> sortBicyclesByPrice() {
-        return bicycleRepository.getBicycles().values()
-                .stream()
+    // Sorting 1 - Java sorted() method (with stream)
+    public ExecutionResult sortBicyclesByPrice() {
+        List<Bicycle> bicycleList = getBicycleList();
+
+        long startTime = System.nanoTime();
+        List<Bicycle> bicycles = bicycleList.stream()
                 .sorted(Comparator.comparingDouble(Bicycle::getPrice))
                 .collect(Collectors.toList());
+
+        long endTime = System.nanoTime();
+        long duration = endTime - startTime;
+
+        return new ExecutionResult(bicycles, duration);
     }
 
     // Sorting 2 - Insertion Sort
-    public List<Bicycle> insertionSortBicyclesByPrice() {
-        List<Bicycle> bicycleList = getBicycleList();
+    public ExecutionResult  insertionSortBicyclesByPrice() {
+        Long startTime = System.nanoTime();
 
-        for (int i = 1; i < bicycleList.size(); i++) {
+        List<Bicycle> bicycleList = getBicycleList();
+        int n = bicycleList.size();
+
+        for (int i = 1; i < n; i++) {
             Bicycle key = bicycleList.get(i);
             int j = i - 1;
+
+            if (bicycleList.get(j).getPrice() <= key.getPrice()) {
+                continue;
+            }
 
             while (j >= 0 && bicycleList.get(j).getPrice() > key.getPrice()) {
                 bicycleList.set(j + 1, bicycleList.get(j));
@@ -48,14 +63,23 @@ public class SortingPriceService {
             bicycleList.set(j + 1, key);
         }
 
-        return bicycleList;
+        long endTime = System.nanoTime();
+        long duration = endTime - startTime;
+
+        return new ExecutionResult(bicycleList, duration);
     }
 
     // Sorting 3 - Merge Sort
-    public List<Bicycle> mergeSortBicyclesByPrice() {
+    public ExecutionResult mergeSortBicyclesByPrice() {
+        long startTime = System.nanoTime();
+
         List<Bicycle> bicycleList = getBicycleList();
         mergeSort(bicycleList, 0, bicycleList.size() - 1);
-        return bicycleList;
+
+        long endTime = System.nanoTime();
+        long duration = endTime - startTime;
+
+        return new ExecutionResult(bicycleList, duration);
     }
 
     private void mergeSort(List<Bicycle> list, int left, int right) {
@@ -117,10 +141,16 @@ public class SortingPriceService {
 
     // Sorting 4 - Tim Sort
     private static final int RUN = 32;
-    public List<Bicycle> timSortBicyclesByPrice() {
+    public ExecutionResult timSortBicyclesByPrice() {
+        long startTime = System.nanoTime();
+
         List<Bicycle> bicycleList = getBicycleList();
         timSort(bicycleList, bicycleList.size());
-        return bicycleList;
+
+        long endTime = System.nanoTime();
+        long durationSeconds = endTime - startTime;
+
+        return new ExecutionResult(bicycleList, durationSeconds);
     }
 
     // Timsort implementation
@@ -213,11 +243,13 @@ public class SortingPriceService {
         Branch branch2 = new Branch(currentBranchId++, "Tour Eiffel", 48.8584, 2.2945);  // Tour Eifflel
         Branch branch3 = new Branch(currentBranchId++, "Musée d'Orsay", 48.8599, 2.3266);  // Musée d'Orsay
         Branch branch4 = new Branch(currentBranchId++, "Grand Palais", 48.8662, 2.3125);  // Grand Palais
+        Branch branch5 = new Branch(currentBranchId++, "Panthéon", 48.8462, 2.344); // Panthéon
 
-        Bicycle bicycle1 = new Bicycle(currentBicycleId++, "memchanical", 30, "good", branch1, 0);
-        Bicycle bicycle2 = new Bicycle(currentBicycleId++, "memchanical", 20, "bad", branch2, 0);
-        Bicycle bicycle3 = new Bicycle(currentBicycleId++, "electric", 60, "good", branch3, 0);
-        Bicycle bicycle4 = new Bicycle(currentBicycleId++, "electric", 50, "good", branch4, 0);
+        Bicycle bicycle1 = new Bicycle(currentBicycleId++, "mechanical", 70, "good", branch1, 0);
+        Bicycle bicycle2 = new Bicycle(currentBicycleId++, "mechanical", 50, "bad", branch2, 0);
+        Bicycle bicycle3 = new Bicycle(currentBicycleId++, "mechanical", 40, "bad", branch3, 0);
+        Bicycle bicycle4 = new Bicycle(currentBicycleId++, "electric", 90, "good", branch4, 0);
+        Bicycle bicycle5 = new Bicycle(currentBicycleId++, "electric", 110, "good", branch5, 0);
 
         branchRepository.saveBranch(branch1);
         branchRepository.saveBranch(branch2);
@@ -228,5 +260,6 @@ public class SortingPriceService {
         bicycleRepository.saveBicycle(bicycle2);
         bicycleRepository.saveBicycle(bicycle3);
         bicycleRepository.saveBicycle(bicycle4);
+        bicycleRepository.saveBicycle(bicycle5);
     }
 }

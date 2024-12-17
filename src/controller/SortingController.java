@@ -1,6 +1,7 @@
 package controller;
 
 import domain.Bicycle;
+import domain.ExecutionResult;
 import service.BicycleService;
 import service.SortingDistanceService;
 import service.SortingPriceService;
@@ -37,29 +38,30 @@ public class SortingController {
         // Sorting 3 - Merge Sort
         sortBicyclesByPrice(Merge_SORT_PRICE.getMessage(), sortingPriceService.mergeSortBicyclesByPrice());
         // Sorting 4 - Tim Sort
-        sortBicyclesByPrice(TIM_SORT_PRICE.getMessage(), sortingPriceService.timSortBicyclesByPrice());
+        // sortBicyclesByPrice(TIM_SORT_PRICE.getMessage(), sortingPriceService.timSortBicyclesByPrice());
 
         // MyLocation
         outputView.getDivisionLine();
         String input = inputView.addMyLocation();
 
         // Sorting 1 - Java sorted() method
-        sortByDistance(input, JAVA_SORT_DISTANCE.getMessage(), sortingDistanceService.sortBicyclesByDistance(input));
+        sortByDistance(JAVA_SORT_DISTANCE.getMessage(), sortingDistanceService.sortBicyclesByDistance(input));
         // Sorting 2 - Insertion Sort
-        sortByDistance(input, INSERTION_SORT_DISTANCE.getMessage(), sortingDistanceService.insertionSortBicyclesByDistance());
+        sortByDistance(INSERTION_SORT_DISTANCE.getMessage(), sortingDistanceService.insertionSortBicyclesByDistance());
         // Sorting 3 - Merge Sort
-        sortByDistance(input, Merge_SORT_DISTANCE.getMessage(), sortingDistanceService.mergeSortBicyclesByDistance());
+        sortByDistance(Merge_SORT_DISTANCE.getMessage(), sortingDistanceService.mergeSortBicyclesByDistance());
         // Sorting 4 - Tim Sort
-        sortByDistance(input, TIM_SORT_DISTANCE.getMessage(), sortingDistanceService.timSortBicyclesByDistance());
+        // sortByDistance(TIM_SORT_DISTANCE.getMessage(), sortingDistanceService.timSortBicyclesByDistance());
     }
 
-    private void sortByDistance(String input, String message, List<Bicycle> bicyclesSortedDistance) {
+    private void sortBicyclesByPrice(String message, ExecutionResult result) {
         outputView.showBicyclesMessage(message);
-        outputView.showBicyclesListWithDistance(bicyclesSortedDistance);
+        outputView.showExecutionResult(result);
     }
 
-    private void sortBicyclesByPrice(String message, List<Bicycle> bicycles) {
+    private void sortByDistance(String message, ExecutionResult result) {
         outputView.showBicyclesMessage(message);
-        outputView.showBicyclesList(bicycles);
+        outputView.showResultWithDistance(result);
     }
+
 }

@@ -38,7 +38,8 @@ public class BicycleController {
         // Sorting bicycles by price
         outputView.getDivisionLine();
         outputView.showBicyclesByPriceInfo();
-        List<Bicycle> bicycles = bicycleService.sortBicyclesByPrice();
+        List<Bicycle> bicycleList = bicycleService.getBicycleList();
+        List<Bicycle> bicycles = bicycleService.sortBicyclesByPrice(bicycleList);
         outputView.showBicyclesList(bicycles);
 
         // Sorting bicycles by distance
@@ -50,7 +51,7 @@ public class BicycleController {
         // Filtering by price range
         outputView.getDivisionLine();
         String priceRangeInput = inputView.filterByPriceInfo();
-        List<Bicycle> bicyclesFiltered = bicycleService.filterBicyclesByPrice(priceRangeInput);
+        List<Bicycle> bicyclesFiltered = bicycleService.filterBicyclesByPriceRange(priceRangeInput);
         outputView.showBicyclesList(bicyclesFiltered);
     }
 }
