@@ -44,5 +44,11 @@ public class BicycleController {
         String input = inputView.addMyLocation();
         List<Bicycle> bicyclesSortedDistance = bicycleService.sortBicyclesByDistance(input);
         outputView.showBicyclesListWithDistance(bicyclesSortedDistance);
+
+        // Filtering by price range
+        inputView.getDivisionLine();
+        String priceRangeInput = inputView.filterByPriceInfo();
+        List<Bicycle> bicyclesFiltered = bicycleService.filterBicyclesByPrice(priceRangeInput);
+        outputView.showBicyclesList(bicyclesFiltered);
     }
 }

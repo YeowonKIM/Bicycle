@@ -24,11 +24,13 @@ public class SortingDistanceService {
         Branch branch2 = new Branch(currentBranchId++, "Tour Eiffel", 48.8584, 2.2945);  // Tour Eifflel
         Branch branch3 = new Branch(currentBranchId++, "Musée d'Orsay", 48.8599, 2.3266);  // Musée d'Orsay
         Branch branch4 = new Branch(currentBranchId++, "Grand Palais", 48.8662, 2.3125);  // Grand Palais
+        Branch branch5 = new Branch(currentBranchId++, "Panthéon", 48.8462, 2.344); // Panthéon
 
-        Bicycle bicycle1 = new Bicycle(currentBicycleId++, "memchanical", 30, "good", branch1, 0);
-        Bicycle bicycle2 = new Bicycle(currentBicycleId++, "memchanical", 20, "bad", branch2, 0);
-        Bicycle bicycle3 = new Bicycle(currentBicycleId++, "electric", 60, "good", branch3, 0);
-        Bicycle bicycle4 = new Bicycle(currentBicycleId++, "electric", 50, "good", branch4, 0);
+        Bicycle bicycle1 = new Bicycle(currentBicycleId++, "mechanical", 70, "good", branch1, 0);
+        Bicycle bicycle2 = new Bicycle(currentBicycleId++, "mechanical", 50, "bad", branch2, 0);
+        Bicycle bicycle3 = new Bicycle(currentBicycleId++, "mechanical", 40, "bad", branch3, 0);
+        Bicycle bicycle4 = new Bicycle(currentBicycleId++, "electric", 90, "good", branch4, 0);
+        Bicycle bicycle5 = new Bicycle(currentBicycleId++, "electric", 110, "good", branch5, 0);
 
         branchRepository.saveBranch(branch1);
         branchRepository.saveBranch(branch2);
@@ -39,6 +41,7 @@ public class SortingDistanceService {
         bicycleRepository.saveBicycle(bicycle2);
         bicycleRepository.saveBicycle(bicycle3);
         bicycleRepository.saveBicycle(bicycle4);
+        bicycleRepository.saveBicycle(bicycle5);
     }
 
     public SortingDistanceService() {
@@ -55,6 +58,7 @@ public class SortingDistanceService {
         List<Bicycle> bicycles = getBicycleList();
         for (Bicycle b : bicycles) {
             double distance = calculateDistance(latitude, longitude, b.getBranch().getLatitude(), b.getBranch().getLongitude());
+            distance = Math.round(distance * 100.0) / 100.0;
             b.setDistance(distance);
         }
 
