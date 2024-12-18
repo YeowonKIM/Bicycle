@@ -82,7 +82,7 @@ public class BicycleService {
         bicycle.update(type, price, condition, branch);
     }
 
-    public void deleteBike(String input) {
+    public void deleteBicycle(String input) {
         Bicycle bicycle = bicycleRepository.getBicycleById(Integer.parseInt(input))
                 .orElseThrow(() -> new RuntimeException("Bicycle not found"));
         bicycleRepository.deleteBicycle(bicycle.getId());
@@ -284,18 +284,6 @@ public class BicycleService {
         Collection<Bicycle> bicycles = bicycleRepository.getBicycles().values();
         List<Bicycle> bicycleList = new ArrayList<>(bicycles);
         return bicycleList;
-    }
-
-    public List<Bicycle> filterBicyclesByPrice2(String input) {
-        String[] parts = input.split(" - ");
-        double minPrice = Double.parseDouble(parts[0]);
-        double maxPrice = Double.parseDouble(parts[1]);
-
-        return bicycleRepository.getBicycles().values()
-                .stream()
-                .filter(b -> b.getPrice() >= minPrice && b.getPrice() <= maxPrice)
-                .sorted(Comparator.comparingDouble(Bicycle::getPrice))
-                .collect(Collectors.toList());
     }
 
 }
