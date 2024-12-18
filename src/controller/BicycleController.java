@@ -32,7 +32,7 @@ public class BicycleController {
         bicycleService.updateBike(inputUpdate, inputDetails);
         bicycleService.readBicycle();
         String inputDelete = inputView.deleteBicycleInfo();
-        bicycleService.deleteBike(inputDelete);
+        bicycleService.deleteBicycle(inputDelete);
         bicycleService.readBicycle();
 
         // Sorting bicycles by price
