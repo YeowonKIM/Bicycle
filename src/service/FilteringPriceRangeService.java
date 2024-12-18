@@ -12,6 +12,9 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Subsidiary section for measuring the execution time of filtering algorithms
+ */
 public class FilteringPriceRangeService {
     private final BicycleRepository bicycleRepository;
     private final BranchRepository branchRepository;

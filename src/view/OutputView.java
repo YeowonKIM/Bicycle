@@ -2,14 +2,15 @@ package view;
 
 import domain.Bicycle;
 import domain.ExecutionResult;
-import repository.BicycleRepository;
-import service.BicycleService;
 
 import java.util.List;
 import java.util.Map;
 
 import static common.InfoMessage.*;
 
+/**
+ * Managing output format
+ */
 public class OutputView {
 
     public OutputView() {
@@ -82,7 +83,7 @@ public class OutputView {
 
     public void getDivisionLine() {
         System.out.println();
-        System.out.println("----------------------------------------------------------------------------------------------------------------------");
+        System.out.println(DIVIDE_BY_LINE.getMessage());
     }
 
 }

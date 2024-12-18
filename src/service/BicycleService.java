@@ -2,15 +2,19 @@ package service;
 
 import domain.Bicycle;
 import domain.Branch;
-import domain.ExecutionResult;
 import repository.BicycleRepository;
 import repository.BranchRepository;
-import view.InputView;
 import view.OutputView;
-
 import java.util.*;
-import java.util.stream.Collectors;
 
+/**
+ * Main service logic that handles overall features
+ *
+ * HashMap: Manages bicycle data. Search/Insertion//Deletion of bicycle data using an ID as the key in a key-value format
+ * Array (Fixed): Splits input values into an array, and sequentially save them to the fields of the bicycle
+ * List (Dynamic): Dynamically stores only the required values based on sorting or filtering results
+ * Merge Sort: After comparing the execution speed of sorting algorithms, merge sort is chosen, O(nlogn)
+ */
 public class BicycleService {
     private final BicycleRepository bicycleRepository;
     private final BranchRepository branchRepository;

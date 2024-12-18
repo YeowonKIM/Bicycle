@@ -8,6 +8,9 @@ import view.OutputView;
 import static common.InfoMessage.FILTERING_PRICE_JAVA;
 import static common.InfoMessage.FILTERING_PRICE_LOOP;
 
+/**
+ * Subsidiary controller for measuring the execution time of filtering algorithms
+ */
 public class FilteringController {
     private final InputView inputView;
     private final OutputView outputView;

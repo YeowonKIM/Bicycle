@@ -6,6 +6,9 @@ import java.util.Scanner;
 
 import static common.InfoMessage.*;
 
+/**
+ * Managing input guide and receiving section
+ */
 public class InputView {
     Scanner scanner = new Scanner(System.in);
 

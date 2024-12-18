@@ -2,6 +2,9 @@ package domain;
 
 import java.util.List;
 
+/**
+ * Entity for measuring each execution speed
+ */
 public class ExecutionResult {
     private final List<Bicycle> bicycles;
     private final long durationSeconds;

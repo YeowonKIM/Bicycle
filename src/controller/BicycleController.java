@@ -7,6 +7,9 @@ import view.OutputView;
 
 import java.util.List;
 
+/**
+ * Main controller that handles overall features
+ */
 public class BicycleController {
     private final InputView inputView;
     private final OutputView outputView;

@@ -1,11 +1,13 @@
 package repository;
 
-import domain.Bicycle;
 import domain.Branch;
 
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Hash map of key-value (id - branch entity) as a data structure
+ */
 public class BranchRepository {
     private final Map<Integer, Branch> branches = new HashMap<>();
 

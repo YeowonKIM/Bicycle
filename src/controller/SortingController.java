@@ -1,17 +1,16 @@
 package controller;
 
-import domain.Bicycle;
 import domain.ExecutionResult;
 import service.BicycleService;
 import service.SortingDistanceService;
 import service.SortingPriceService;
 import view.InputView;
 import view.OutputView;
-
-import java.util.List;
-
 import static common.InfoMessage.*;
 
+/**
+ * Subsidiary controller for measuring the execution time of sorting algorithms (Java built-in method, Insertion sort, Merge Sort)
+ */
 public class SortingController {
     private final InputView inputView;
     private final OutputView outputView;
@@ -37,8 +36,6 @@ public class SortingController {
         sortBicyclesByPrice(INSERTION_SORT_PRICE.getMessage(), sortingPriceService.insertionSortBicyclesByPrice());
         // Sorting 3 - Merge Sort
         sortBicyclesByPrice(Merge_SORT_PRICE.getMessage(), sortingPriceService.mergeSortBicyclesByPrice());
-        // Sorting 4 - Tim Sort
-        // sortBicyclesByPrice(TIM_SORT_PRICE.getMessage(), sortingPriceService.timSortBicyclesByPrice());
 
         // MyLocation
         outputView.getDivisionLine();
@@ -50,8 +47,7 @@ public class SortingController {
         sortByDistance(INSERTION_SORT_DISTANCE.getMessage(), sortingDistanceService.insertionSortBicyclesByDistance());
         // Sorting 3 - Merge Sort
         sortByDistance(Merge_SORT_DISTANCE.getMessage(), sortingDistanceService.mergeSortBicyclesByDistance());
-        // Sorting 4 - Tim Sort
-        // sortByDistance(TIM_SORT_DISTANCE.getMessage(), sortingDistanceService.timSortBicyclesByDistance());
+
     }
 
     private void sortBicyclesByPrice(String message, ExecutionResult result) {

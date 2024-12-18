@@ -1,7 +1,10 @@
 package common;
 
+/**
+ * Guidance displayed during execution
+ */
 public enum InfoMessage {
-    GREETING("Welcome!👏 This is a bike sharing service."),
+    GREETING("Welcome!👏 This is a bicycle sharing service."),
 
     // CRUD
     ADD_BICYCLE("[Add Bicycle]"),
@@ -14,6 +17,7 @@ public enum InfoMessage {
     SHOW_BICYCLE("[View Bicycles]"),
     CHANGE_BICYCLE_INFO("[Update Bicycle Information]"),
     DELETE_A_BICYCYLE("[Delete bicycle]"),
+    DIVIDE_BY_LINE("------------------------------------------------------------------------------------"),
 
     // Sorting bicycles by price
     SORTING_PRICE("[Sort by price]"),

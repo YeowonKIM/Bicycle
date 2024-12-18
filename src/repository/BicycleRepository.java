@@ -6,6 +6,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+/**
+ * Hash map of key-value (id - bike entity) as a data structure
+ */
 public class BicycleRepository {
     private final Map<Integer, Bicycle> bicycleRack = new HashMap<>();
 
